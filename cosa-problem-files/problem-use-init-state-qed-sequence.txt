@@ -1,0 +1,23 @@
+[GENERAL]
+model_files: ridecore.vlist[top],init.ssts
+# clock_behaviors: DetClock(clk, 1)
+abstract_clock: True
+vcd: True
+no_arrays: True
+default_initial_value: 0
+
+[DEFAULT]
+bmc_length: 10
+solver_name: btor
+
+[QED_DUP_EMPTY_INV_INSTR]
+description: "QED instruction cache: exec_dup and empty queue -> invalid instruction "
+verification: safety
+properties: (pipe.qed0.qic.is_nop = 0_1) & (pipe.qed0.qic.exec_dup = 1_1) & (pipe.qed0.qic.is_empty = 1_1) -> (pipe.qed0.qic.qic_qimux_instruction = 127_32)
+
+[QED_DUP_EMPTY_INV_OUT_SIGNAL]
+description: "QED instruction cache: exec_dup and empty queue -> output valid-signal low"
+verification: safety
+properties: (pipe.qed0.qic.is_nop = 0_1) & (pipe.qed0.qic.exec_dup = 1_1) & (pipe.qed0.qic.is_empty = 1_1) -> (pipe.qed0.qic.vld_out = 0_1)
+
+
