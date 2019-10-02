@@ -43,6 +43,9 @@ rst);
   reg [31:0]    outinstr[255:0];
    (* keep *)
   reg [7:0] 	ptr;
+   (* keep *)
+  wire [31:0] 	outi;
+ 	
 
   qed_decoder dec (.ifu_qed_instruction(qic_qimux_instruction),
                    .shamt(shamt),
@@ -91,7 +94,6 @@ rst);
                    .IF_stall(stall_IF),
                    .ifu_qed_instruction(ifu_qed_instruction));
 
-
    always @(posedge clk)
      begin
         if (rst) begin
@@ -101,5 +103,7 @@ rst);
 	   ptr <= ptr + 1;
 	end
      end
+
+   assign outi = outinstr[ptr];
    
 endmodule
