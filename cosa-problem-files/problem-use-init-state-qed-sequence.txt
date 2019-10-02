@@ -10,6 +10,12 @@ default_initial_value: 0
 bmc_length: 10
 solver_name: btor
 
+[QED_SEQ_PROPERTY]
+description: "FIXME! QED sequence property"
+verification: safety
+properties: ((pipe.qed0.qic.vld_out = 1_1) & (pipe.qed0.qic.cnt = 1_7)) -> (pipe.qed0.qic.exec_dup = 0_1) 
+
+
 [QED_DUP_EMPTY_INV_INSTR]
 description: "QED instruction cache: exec_dup and empty queue -> invalid instruction "
 verification: safety
